@@ -1,0 +1,39 @@
+/*
+* 작성일 : 2022-05-07
+* 2022 ㅋㅋㅇ ㅇㅌㅅ
+* 통과하지 못한 코드 - 속도 문제
+* */
+function solution(queue1, queue2) {
+
+    function sum(queue){
+        let sum1 = 0;
+        for (let i=0; i < queue.length; i++ ) {sum1 += queue[i];}
+        return sum1;
+    }
+
+    var sum1;
+    var sum2;
+    var answer = 0;
+
+    //아마 여기서 글자를 하나하나 옮기는 게 오래걸리는 원인이 아니였을까 싶다.
+    //어떻게 해야할지 몰라서 우왕좌왕하다가 시간을 다 버렸다.....
+    for(let i = 0; sum(queue1) != sum(queue2); i++){
+        sum1 = queue1.reduce((accumulator, curr) => accumulator + curr);
+        sum2 = queue2.reduce((accumulator, curr) => accumulator + curr);
+
+        if(sum1 > sum2){
+            queue2.push(queue1[0]);
+            queue1.shift();
+            answer++;
+        }else{
+            queue1.push(queue2[0]);
+            queue2.shift();
+            answer++;
+        }
+        if(queue1.length == 0 || queue2.length == 0){
+            answer = -1;
+            break;
+        }
+    }
+    return answer;
+}
