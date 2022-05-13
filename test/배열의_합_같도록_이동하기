@@ -2,6 +2,7 @@
 * 작성일 : 2022-05-07
 * 2022 ㅋㅋㅇ ㅇㅌㅅ
 * 통과하지 못한 코드 - 속도 문제
+* 2022-05-13 합계로 계산을 함으로써 시간 복잡도 개선
 * */
 function solution(queue1, queue2) {
 
@@ -11,29 +12,73 @@ function solution(queue1, queue2) {
         return sum1;
     }
 
-    var sum1;
-    var sum2;
+    var sum1 = sum(queue1);
+    var sum2 = sum(queue2);
+    var lengthT = queue1.length + queue2.length;
     var answer = 0;
 
-    //아마 여기서 글자를 하나하나 옮기는 게 오래걸리는 원인이 아니였을까 싶다.
-    //어떻게 해야할지 몰라서 우왕좌왕하다가 시간을 다 버렸다.....
-    for(let i = 0; sum(queue1) != sum(queue2); i++){
-        sum1 = queue1.reduce((accumulator, curr) => accumulator + curr);
-        sum2 = queue2.reduce((accumulator, curr) => accumulator + curr);
+    for(let i = 0; sum1 != sum2; i++) {
+        //console.log("전", sum1, sum2, "ff")
+        if (sum1 > sum2) {
+            //합계 수정
+            sum2 += queue1[0];
+            sum1 -= queue1[0];
 
-        if(sum1 > sum2){
+            //배열 수정
             queue2.push(queue1[0]);
             queue1.shift();
+
             answer++;
-        }else{
+            //console.log("앞", sum1, sum2, "ff")
+        } else {
+            //합계 수정
+            sum2 -= queue2[0];
+            sum1 += queue2[0];
+
+            //배열 수정
             queue1.push(queue2[0]);
             queue2.shift();
+
             answer++;
+            //console.log("뒤", sum1, sum2, "ff")
         }
-        if(queue1.length == 0 || queue2.length == 0){
+
+        //해당 규칙은 결과 값을 보고 유추함, 배열이 원상 복귀되는 최대의 경우의 수
+        if (i > lengthT * (lengthT - 2)) {
             answer = -1;
             break;
         }
     }
+
     return answer;
 }
+
+
+// [TEST]
+//var queue1 = [3,2,7,2]
+//var queue2 = [4,6,5,1]
+//var 2
+//
+//var queue1 = [1,2,1,2]
+//var queue2 = [1,10,1,2]
+//var 7
+//
+//var queue1 = [31,4,3]
+//var queue2 = [1,2,3]
+//var -1
+//
+//var queue1 = [2]
+//var queue2 = [2,2,8,2]
+//var 6
+//
+//var queue1 = [2]
+//var queue2 = [2,2,7,2]
+//var -1
+//
+var queue1 = [10, 2]
+var queue2 = [5, 7, 2]
+//var -1
+
+console.log(solution(queue1, queue2));
+
+
