@@ -1,5 +1,6 @@
 /*
 * 작성일 : 2022-05-13
+* https://hoyashu.tistory.com/262
 * */
 function solution(absolutes, signs) {
     var answer = absolutes.reduce((a, cur, i) => {
