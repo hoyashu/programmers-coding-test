@@ -63,13 +63,6 @@ public class TreeTestGO {
         TreeGo treeGo = new TreeGo();
         treeGo.makeTreeGo(a);
         treeGo.searchTreeGo(treeGo.root, 1);
-                /*
-        (2)
-       /   \
-      /     \
-    (0)     (3)
-    /       /  \
-  (1)     (4)  (5)
-   */
+
     }
 }

@@ -58,6 +58,7 @@ public class TreeTest {
     public static void main(String[] args) {
 
         int[] a = new int[5];
+        //int[] a = {5, 2, 3, 1, 4};
         int k = 1;
         for (int i = 0; i < a.length; i++) {
             a[i] = k;

@@ -3,18 +3,18 @@ package study.tree;
 import java.util.List;
 
 class TreeNode {
-    int val;
+    Integer val;
     TreeNode left;
     TreeNode right;
 
     TreeNode() {
     }
 
-    TreeNode(int val) {
+    TreeNode(Integer val) {
         this.val = val;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    TreeNode(Integer val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
         this.right = right;
@@ -32,27 +32,44 @@ class TreeB {
 
     //처음
     public void makeTree(Integer[] a) {
-        this.root = makeTreeB(a, 0, a.length - 1);
+        this.root = makeTreeB(a, 0, 1, 1);
     }
 
-    public TreeNode makeTreeB(Integer[] a, int start, int end) {
-        //제귀함수 종료
-        if (start > end) return null;
+    public TreeNode makeTreeB(Integer[] a, int start, int end, int isleft) {
+        //재귀함수 종료
+        //int end = a.length-1;
 
-        int mid = (start + end) / 2;
+        if (start < 0 || start > a.length - 1) return null;
 
-        TreeNode tree = new TreeNode(a[mid]);
-        //제귀함수 시작
-        tree.left = makeTreeB(a, start, mid - 1);
-        tree.right = makeTreeB(a, mid + 1, end);
+        //int mid = (start + end) / 2;
+        System.out.println(a.length + ":" + start);
+
+
+        //for(int i = start; i<a.length; i++){
+        Integer cusor = null;
+        if (isleft == 0) {
+            cusor = a[end];
+        } else {
+            cusor = a[start];
+        }
+
+        if (cusor == null) return null;
+        TreeNode tree = new TreeNode(cusor);
+        tree.left = makeTreeB(a, start * 2 + 1, start * 2 + 2, 1);
+        tree.right = makeTreeB(a, start * 2 + 1, start * 2 + 2, 0);
+        //}
+
+
+        //재귀함수 시작
+
         return tree;
     }
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        left = root.val + root.left.val;
-        right = root.val + root.right.val;
+        //left = root.val + root.left.val;
+        //right = root.val + root.right.val;
 
-
+        System.out.println("Dd");
         return null;
 
 
